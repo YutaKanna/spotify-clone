@@ -1,30 +1,104 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
-  <HelloWorld msg="Vite + Vue" />
+	<router-view v-if="isLoginPage" name="loginPage"> </router-view>
+	<AppInfoModal></AppInfoModal>
+
+	<div
+		v-if="!isLoginPage"
+		class="body bg-dark overflow-y-hidden box-content flex"
+		style="font-family: 'proxima-nova', sans-serif Arial"
+	>
+		<AppInfoModal></AppInfoModal>
+
+		<!-- side nav -->
+		<Sidebar
+			class="max-w-[18rem]"
+			:trackImgDisplay="trackImgDisplay"
+			:toggleImg="toggleImg"
+		/>
+
+		<!-- main content -->
+		<div
+			class="main-view-container w-full min-w-[530px] overflow-y-auto overflow-x-hidden z-0 relative"
+		>
+			<!-- header -->
+			<Header name="header" />
+			<router-view v-slot="{ Component }">
+				<component :is="Component" :key="$route.path"> </component>
+			</router-view>
+		</div>
+	</div>
+
+	<div v-if="!isLoginPage" class="absolute bottom-0 w-full z-[900]">
+		<Footer
+			class="flex-none"
+			:trackImgDisplay="trackImgDisplay"
+			:toggleImg="toggleImg"
+		/>
+	</div>
 </template>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+<script>
+import Header from './components/Header/Header.vue';
+import Sidebar from './components/Sidebar/Sidebar.vue';
+import Footer from './components/Footer/Footer.vue';
+import LoginPage from './components/LoginPage/LoginPage.vue';
+import AppInfoModal from './components/Modal/AppInfoModal.vue';
+import AppHowitsWork from './components/Modal/AppHowitsWork.vue';
+
+export default {
+	components: {
+		Header,
+		Sidebar,
+		Footer,
+		LoginPage,
+		AppInfoModal,
+		AppHowitsWork,
+	},
+	data() {
+		return {
+			trackImgDisplay: true,
+		};
+	},
+	computed: {
+		isLoginPage() {
+			return this.$route.path === '/login';
+		},
+		pending() {
+			return console.log('fallback component is pending');
+		},
+	},
+	methods: {
+		toggleImg() {
+			this.trackImgDisplay = !this.trackImgDisplay;
+		},
+	},
+};
+</script>
+
+<style>
+.body {
+	display: flex;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+.main-view-container {
+	height: calc(100vh - 92px);
 }
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+.beforeDot:before {
+	content: ' • ';
+}
+.afterDot:after {
+	content: ' • ';
+}
+.prebg {
+	background-color: #181818;
+}
+
+.fade-card-enter-active,
+.fade-card-leave-active {
+	transition: opacity 50ms ease-in;
+}
+
+.fade-card-enter-from,
+.fade-card-leave-to {
+	opacity: 0;
 }
 </style>

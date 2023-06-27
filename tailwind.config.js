@@ -17,7 +17,7 @@ module.exports = {
 			xl1: '1460px',
 			xl2: '1793px',
 		},
-		fontFamily: 'Proxima Nova',
+		// fontFamily: 'Proxima Nova',
 		container: {
 			center: true,
 		},
@@ -147,5 +147,4 @@ module.exports = {
 			},
 		},
 	},
-	plugins: [require('@tailwindcss/line-clamp')],
 };
