@@ -9,10 +9,21 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "vue": "^3.2.47"
+    "axios": "^0.27.2",
+    "require": "^2.4.20",
+    "vue": "^3.2.47",
+    "vue-router": "^4.1.4",
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
+    "@tailwindcss/line-clamp": "^0.4.0",
     "@vitejs/plugin-vue": "^4.1.0",
+    "autoprefixer": "^10.4.7",
+    "postcss": "^8.4.13",
+    "sass": "^1.54.0",
+    "sass-loader": "^13.0.2",
+    "tailwindcss": "^3.0.24",
+    "unplugin-auto-import": "^0.11.2",
     "vite": "^4.3.9"
   }
 }
